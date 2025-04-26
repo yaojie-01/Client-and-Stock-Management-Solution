@@ -1,11 +1,10 @@
-#NG QI HAO
-#TP075409
+
 
 from datetime import datetime
 
-# UI-related Functions
+
 def display_menu():
-    """Display the main menu."""
+    
     print("=" * 63)
     print("💼 Welcome to KLCC Customer and Inventory Management System 💼")
     print("=" * 63)
@@ -15,21 +14,21 @@ def display_menu():
     print("3️⃣  Exit")
     print("\n" + "=" * 63)
 
-# Function to generate unique IDs
+
 def generate_order_id(orders):
-    """Generate a unique order ID."""
+    
     order_count = len(orders) + 1
     return f"ORD{order_count:03d}"
 
 def generate_inventory_id(inventory):
-    """Generate a unique inventory ID."""
+    
     inventory_count = len(inventory) + 1
     return f"INV{inventory_count:03d}"
 
 
-# User-related Functions
+
 def is_strong_password(password, settings):
-    # Check if password length is less than the minimum required length
+    
     if len(password) < settings["MIN_PASSWORD_LENGTH"]:
         return False
 
@@ -39,7 +38,7 @@ def is_strong_password(password, settings):
     has_special = False
     special_characters = "!@#$%^&*()-+"
 
-    # Check each character to determine if it meets the required criteria
+    
     for char in password:
         if char.isupper():
             has_upper = True
@@ -54,7 +53,7 @@ def is_strong_password(password, settings):
 
 
 def register_user(users, username, password, settings):
-    """Register a new user."""
+    
     
     if not username or not password:
         print("❌ Invalid input: All fields are required.")
@@ -65,16 +64,16 @@ def register_user(users, username, password, settings):
         return
 
     user_type = ""
-    # .strip() removes any excess whitespace from the input.
+    
     while user_type not in ["admin", "customer", "inventory"]:
         user_type = input("Enter user type (admin/customer/inventory): ").strip().lower()
         if user_type not in ["admin", "customer", "inventory"]:
             print("⚠️ Invalid user type. Please enter 'admin', 'customer', or 'inventory'.")
 
     status = settings["STATUS_PENDING"]
-    # .strip() removes any excess whitespace from the input.
+    
     phone_number = input("Enter phone number (or leave blank if not applicable): ").strip()
-    # Get the current date and time formatted as a string 'YYYY-MM-DD HH:MM:SS'
+    
     registration_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     users.append([username, password, user_type, status, phone_number, registration_date])
@@ -85,7 +84,7 @@ def register_user(users, username, password, settings):
 
 
 def login(users, username, password, settings):
-    """Login a user."""
+    
 
     print("\n" + "="*50)
     print("🔑 User Login".center(50))
@@ -104,19 +103,19 @@ def login(users, username, password, settings):
     return None
 
 
-# Loading/Saving Functions
+
 def load_users(settings):
-    """Load users from the file."""
+    
     users = []
     try:
         with open(settings["USERS_FILE"], "r") as file:
             for line in file:
-                # Remove leading/trailing whitespace and split the line into a list using commas
+                
                 users.append(line.strip().split(","))
     except FileNotFoundError:
         print(f"File {settings['USERS_FILE']} not found. Starting with an empty user list.")
 
-    # Add default super user if not present
+    
     found = False
 
     for user in users:
@@ -124,21 +123,21 @@ def load_users(settings):
             found = True
             break
 
-    # If the default super user was not found in the list
+    
     if not found:
         users.append(list(settings["DEFAULT_SUPER_USER"]))
 
     return users
 
 def save_users(users, settings):
-    """Save users to the file."""
+    
     with open(settings["USERS_FILE"], "w") as file:
         for user in users:
             file.write(",".join(user) + "\n")
 
 
 def load_orders(settings):
-    """Load orders from the file."""
+    
     orders = []
     try:
         with open(settings["ORDERS_FILE"], "r") as file:
@@ -151,13 +150,13 @@ def load_orders(settings):
     return orders
 
 def save_orders(orders, settings):
-    """Save orders to the file."""
+    
     with open(settings["ORDERS_FILE"], "w") as file:
         for order in orders:
             file.write(str(order) + "\n")
 
 def load_inventory(settings):
-    """Load inventory from the file."""
+    
     inventory = []
     try:
         with open(settings["INVENTORY_FILE"], "r") as file:
@@ -170,13 +169,13 @@ def load_inventory(settings):
     return inventory
 
 def save_inventory(inventory, settings):
-    """Save inventory to the file."""
+    
     with open(settings["INVENTORY_FILE"], "w") as file:
         for item in inventory:
             file.write(str(item) + "\n")
 
 def load_prices(settings):
-    """Load prices from the file."""
+    
     prices = {}
     try:
         with open(settings["PRICES_FILE"], "r") as file:
@@ -190,13 +189,13 @@ def load_prices(settings):
     return prices
 
 def save_prices(prices, settings):
-    """Save prices to the file."""
+    
     with open(settings["PRICES_FILE"], "w") as file:
         for item, price in prices.items():
             file.write(f"{item},{price}\n")
 
 def load_stock(settings):
-    """Load stock from the file."""
+    
     stock = {}
     try:
         with open(settings["STOCK_FILE"], "r") as file:
@@ -210,13 +209,13 @@ def load_stock(settings):
     return stock
 
 def save_stock(stock, settings):
-    """Save stock to the file."""
+    
     with open(settings["STOCK_FILE"], "w") as file:
         for item, quantity in stock.items():
             file.write(f"{item},{quantity}\n")
 
 
-# Super User/Admin Functions
+
 def add_user(users, settings):
     """Add User"""
     print("\n" + "="*50)
@@ -298,7 +297,7 @@ def verify_all_users(users, settings):
     save_users(users, settings)
 
 def modify_user_details(users, settings):
-    """Modify User Details"""
+    
     print("\n" + "="*50)
     print("✏️ Modify User Details".center(50))
     print("="*50)
@@ -307,7 +306,7 @@ def modify_user_details(users, settings):
     for user in users:
         print(f"👤 {user[0]}")
 
-    # Prompt for the username to modify
+    
     username = input("Enter username to modify: ")
     for user in users:
         if user[0] == username:
@@ -323,7 +322,7 @@ def modify_user_details(users, settings):
 
 
 def disable_user_access(users, settings):
-    """Disable or Re-enable User Access"""
+    
     print("\n" + "="*50)
     print("🚫 Disable/Enable User Access".center(50))
     print("="*50)
@@ -331,12 +330,12 @@ def disable_user_access(users, settings):
     action = input("Would you like to:\n1. 🚫 Disable user access\n2. 🔄 Re-enable user access\nEnter choice: ").strip()
 
     if action == '1':
-        # Display available users
+        
         print("🔍 Available Users:")
         for user in users:
             print(f"👤 {user[0]}")
 
-        # Prompt for username to disable
+        
         username = input("Enter username to disable: ").strip()
         for user in users:
             if user[0] == username:
@@ -347,7 +346,7 @@ def disable_user_access(users, settings):
         print("❌ User not found.")
 
     elif action == '2':
-        # Display disabled users
+        
         print("🔍 Disabled Users:")
         disabled_users_found = False
         for user in users:
@@ -357,7 +356,7 @@ def disable_user_access(users, settings):
         if not disabled_users_found:
             print("✅ No disabled users found.")
 
-        # Prompt for username to re-enable
+        
         username = input("Enter username to re-enable: ").strip()
         for user in users:
             if user[0] == username and user[3] == "disabled":
@@ -372,7 +371,7 @@ def disable_user_access(users, settings):
 
 
 def inquiry_user_system_usage(users):
-    """Inquiry User System Usage"""
+    
     print("\n" + "="*50)
     print("🔍 Inquiry User System Usage".center(50))
     print("="*50)
@@ -401,7 +400,7 @@ def inquiry_user_system_usage(users):
 
 
 def check_customer_order_status(users, orders):
-    """Check Customer Order Status"""
+    
     print("\n" + "="*50)
     print("📦 Check Customer Order Status".center(50))
     print("="*50)
@@ -432,7 +431,7 @@ def check_customer_order_status(users, orders):
 
 
 def generate_admin_reports(users, orders, inventory):
-    """Generate admin reports."""
+    
     print("\n" + "="*50)
     print("📊 Generate Admin Reports".center(50))
     print("="*50)
@@ -483,32 +482,32 @@ def generate_admin_reports(users, orders, inventory):
 
 
 
-# Customer Functions
+
 def generate_customer_reports(username, orders):
     """Generate a report of orders for the logged-in user."""
     print("\n" + "="*50)
     print("📊 Generating Orders Report".center(50))
     print("="*50)
 
-    # Filter orders for the given username
+    
     user_orders = [order for order in orders if order["username"] == username]
 
-    # Check if there are any orders for the user
+    
     if user_orders:
         print(f"\n📦 **Orders Report for {username}:**")
         for order in user_orders:
             print(f"\n📝 Order ID: {order['order_id']}")
             print(f"📦 Item: {order['item']}")
 
-            # Print quantity if it exists
+            
             if 'quantity' in order:
                 print(f"🔢 Quantity: {order['quantity']}")
 
-            # Print issue if it exists
+            
             if 'issue' in order:
                 print(f"🛠️ Issue: {order['issue']}")
 
-            # Print status
+           
             print(f"✅ Status: {order['status']}")
 
         print("\n✅ Orders report generated successfully!")
@@ -517,7 +516,7 @@ def generate_customer_reports(username, orders):
 
 
 def place_customer_order(username, orders, stock):
-    """Place a customer order and update the order list."""
+    
     print("\n" + "="*50)
     print("🛒 Place Customer Order".center(50))
     print("="*50)
@@ -525,7 +524,7 @@ def place_customer_order(username, orders, stock):
     order_id = generate_order_id(orders)
     item_input = input("Enter item to order: ").strip().title()  # Capitalize item input
 
-    # Convert stock dictionary keys to title case to match input formatting
+    
     stock_normalized = {k.title(): v for k, v in stock.items()}
 
     if item_input in stock_normalized:  # Check if item exists in stock
@@ -561,7 +560,7 @@ def place_customer_order(username, orders, stock):
 
 
 def place_service_repair(username, orders, settings):
-    """Request Service/Repair"""
+    
     print("\n" + "="*50)
     print("🔧 Request Service/Repair".center(50))
     print("="*50)
@@ -583,7 +582,7 @@ def place_service_repair(username, orders, settings):
 
 
 def modify_customer_order(username, orders, settings):
-    """Modify an existing order."""
+    
     print("\n" + "="*50)
     print("✏️ Modify Customer Order".center(50))
     print("="*50)
@@ -612,7 +611,7 @@ def modify_customer_order(username, orders, settings):
     print("❌ Order not found or you do not have permission to modify it.")
 
 def cancel_customer_order(username, orders, settings):
-    """Cancel an existing order."""
+    
     print("\n" + "="*50)
     print("❌ Cancel Customer Order".center(50))
     print("="*50)
@@ -631,7 +630,7 @@ def cancel_customer_order(username, orders, settings):
 
 
 def make_customer_payment(username, orders, stock, prices, settings):
-    """Make a payment for a customer order and update stock."""
+    
     print("\n" + "="*50)
     print("💳 Make Customer Payment".center(50))
     print("="*50)
@@ -674,7 +673,7 @@ def make_customer_payment(username, orders, stock, prices, settings):
             order["status"] = "completed"
             save_orders(orders, settings)
 
-            # Update stock if it's a product order
+            
             if order_type == "product":
                 if item_name in stock:
                     stock[item_name] -= order["quantity"]
@@ -694,7 +693,7 @@ def make_customer_payment(username, orders, stock, prices, settings):
 
 
 def inquiry_order_status(username, orders):
-    """Inquire about the status of an order."""
+    
     print("\n" + "="*50)
     print("🔍 Inquiry Order Status".center(50))
     print("="*50)
@@ -712,7 +711,7 @@ def inquiry_order_status(username, orders):
     print("❌ Order not found or you do not have permission to inquire about it.")
 
 
-# Inventory Functions
+
 def place_inventory_order(inventory, prices, settings):
     """Place a new inventory order to replenish stock."""
     print("\n" + "="*50)
@@ -722,7 +721,7 @@ def place_inventory_order(inventory, prices, settings):
     inventory_id = generate_inventory_id(inventory)
     item_input = input("Enter item to order: ").strip().title()  # Capitalize item input
 
-    # Normalize the item input and find the corresponding item in the prices dictionary
+    
     item = None
     for key in prices:
         if key.title() == item_input:
@@ -750,7 +749,7 @@ def place_inventory_order(inventory, prices, settings):
     print(f'📝 Your order for item "{item}" with a quantity of {quantity} and a unit price of RM{unit_price} has been recorded.')
     print(f"\n💰 Based on your order, the total cost is RM{total}")
 
-    # Save changes
+    
     save_inventory(inventory, settings)
 
 def check_stock(stock):
@@ -761,7 +760,7 @@ def check_stock(stock):
         print(f"{item}: {quantity}")
 
 def check_purchase_order_status(inventory):
-    """Check and display the status of all purchase orders."""
+    
     print("\n" + "="*50)
     print("📋 Purchase Order Statuses".center(50))
     print("="*50)
@@ -781,7 +780,7 @@ def check_purchase_order_status(inventory):
 
 
 def modify_inventory_order(inventory, prices, settings):
-    """Modify an existing inventory order."""
+    
     print("\n" + "="*50)
     print("✏️ Modify Inventory Order".center(50))
     print("="*50)
@@ -815,7 +814,7 @@ def modify_inventory_order(inventory, prices, settings):
     print("❌ Inventory order not found.")
 
 def cancel_inventory_order(inventory, settings):
-    """Cancel an existing inventory order."""
+    
     print("\n" + "="*50)
     print("❌ Cancel Inventory Order".center(50))
     print("="*50)
@@ -833,14 +832,14 @@ def cancel_inventory_order(inventory, settings):
     print("❌ Inventory order not found.")
 
 def make_inventory_payment(inventory, stock, prices, settings):
-    """Make a payment for an inventory order and update stock."""
+    
     print("\n" + "="*50)
     print("💳 Make Inventory Payment".center(50))
     print("="*50)
 
     inventory_id = input("Enter inventory ID to make payment: ").strip()
 
-    # Flag to check if the order is found
+    
     order_found = False
 
     for order in inventory:
@@ -851,7 +850,7 @@ def make_inventory_payment(inventory, stock, prices, settings):
                 print("❌ Payment already completed for this inventory order.")
                 return
 
-            # Retrieve item_name safely
+            
             item_name = order.get("item")
             if item_name is None:
                 print("❌ Error: Item name is missing in the order.")
@@ -893,7 +892,7 @@ def make_inventory_payment(inventory, stock, prices, settings):
 
 
 def generate_inventory_reports(inventory):
-    """Generate and display a detailed report of all inventory orders, including additional metadata."""
+   
     print("\n" + "="*50)
     print("📄 Detailed Inventory Report".center(50))
     print("="*50)
@@ -902,18 +901,17 @@ def generate_inventory_reports(inventory):
         print("❌ No inventory orders to report.")
         return
 
-    # Header for the report
+    
     print("ID       | Item        | Quantity | Status  | Date                ")
     print("-" * 60)
 
     for order in inventory:
-        # Adjust formatting for columns based on the data width
+        
         print(f"{order['inventory_id']:7} | {order['item']:10} | {order['quantity']:8} | {order['status']:7} | {order.get('order_date', 'N/A')}")
 
 
-# Super User Menu
 def super_user_menu(users, orders, inventory, settings):
-    """Display the super user menu."""
+    
     while True:
         print("\n" + "="*50)
         print("🔧 Super User Menu".center(50))
@@ -951,9 +949,9 @@ def super_user_menu(users, orders, inventory, settings):
             print("❌ Invalid choice.")
 
 
-# Admin Menu
+
 def admin_menu(users, orders, inventory, settings):
-    """Display the admin menu."""
+    
     while True:
         print("\n" + "="*40)
         print("🛠️ Admin Menu".center(40))
@@ -980,9 +978,9 @@ def admin_menu(users, orders, inventory, settings):
 
 
 
-# Super User/Admin Menu ---> Verify Menu
+
 def verify_menu(users, settings):
-    """Verify new customers."""
+    
     while True:
         print("\n" + "="*40)
         print("🔍 Verify Menu".center(40))
@@ -1005,11 +1003,11 @@ def verify_menu(users, settings):
             print("❌ Invalid choice.")
 
 
-# Customer Menu
+
 def customer_menu(users, username, orders, inventory, stock, prices, settings):
 
     while True:
-        # Display menu options for the customer
+        
         print("\n" + "="*40)
         print("👤 Customer Menu".center(40))
         print("="*40)
@@ -1021,7 +1019,7 @@ def customer_menu(users, username, orders, inventory, stock, prices, settings):
 
         choice = input("Enter choice: ").strip()
 
-        # Handle the user's menu selection
+        
         if choice == "1":
             purchase_order_menu(username, orders, stock, prices, settings)
         elif choice == "2":
@@ -1037,9 +1035,9 @@ def customer_menu(users, username, orders, inventory, stock, prices, settings):
 
 
 
-# Customer Menu ---> Purchase Order Menu
+
 def purchase_order_menu(username, orders, stock, prices, settings):
-    # Display menu options for purchase orders
+    
     while True:
         print("\n" + "="*40)
         print("🛒 Purchase Order Menu".center(40))
@@ -1071,9 +1069,9 @@ def purchase_order_menu(username, orders, stock, prices, settings):
             print("❌ Invalid choice.")
 
 
-# Customer Menu ---> Repair/Service Order Menu
+
 def repair_order_menu(username, orders, stock, prices, settings):
-    # Display menu options for repair/service orders
+    
     while True:
         print("\n" + "="*40)
         print("🔧 Repair/Service Order Menu".center(40))
@@ -1105,9 +1103,9 @@ def repair_order_menu(username, orders, stock, prices, settings):
             print("❌ Invalid choice.")
 
 
-# Inventory Menu
+
 def inventory_menu(inventory, stock, prices, settings):
-    """Display the inventory menu."""
+    
     while True:
         print("\n" + "="*40)
         print("📦 Inventory Menu".center(40))
@@ -1145,10 +1143,10 @@ def inventory_menu(inventory, stock, prices, settings):
             print("❌ Invalid choice. Please try again.")
 
 
-# Main Function
+
 def main():
 
-    # Initialize settings dictionary with filenames and other constants
+    
     settings = {
     "USERS_FILE": "users.txt",
     "ORDERS_FILE": "orders.txt",
@@ -1161,14 +1159,14 @@ def main():
     "MIN_PASSWORD_LENGTH": 8,
     }
 
-    # Initialize lists for users, orders, inventory, prices, and stock
+    
     users = []
     orders = []
     inventory = []
     prices = {}
     stock = {}
 
-    # Load data from text files into the respective variables
+    
     users = load_users(settings)
     orders = load_orders(settings)
     inventory = load_inventory(settings)
@@ -1176,12 +1174,12 @@ def main():
     stock = load_stock(settings)
     save_users(users, settings)
 
-    # Display the main menu to the user
+    
     while True:
         display_menu()
         choice = input("🔍 Enter your choice: ")
 
-        # Handle user registration
+        
         if choice == "1":
             print("\n" + "="*50)
             print("🔑 Register".center(50))
@@ -1190,7 +1188,7 @@ def main():
             password = input("Enter password: ")
             register_user(users, username, password, settings)
 
-        # Handle user login
+        
         elif choice == "2":
             print("\n" + "="*50)
             print("🔑 Login".center(50))
@@ -1215,7 +1213,7 @@ def main():
             else:
                 print("❌ Login failed. ")
 
-        # Handle program exit
+        
         elif choice == "3":
             print("\n🚪 Exiting the system. Goodbye!")
             save_users(users, settings)
