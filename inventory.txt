@@ -1,0 +1,3 @@
+{'inventory_id': 'INV001', 'item': 'Laptop', 'quantity': 5, 'status': 'completed'}
+{'inventory_id': 'INV002', 'item': 'RAM', 'quantity': 5, 'status': 'completed'}
+{'inventory_id': 'INV003', 'item': 'Monitor', 'quantity': 2, 'status': 'completed'}

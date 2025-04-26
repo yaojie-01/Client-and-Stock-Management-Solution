@@ -1,0 +1,4 @@
+super user,Super123!,super user,approved,123-456-7890,N/A
+cus,Super123!,customer,approved,,2024-08-16 20:21:34
+inv,Super123!,inventory,approved,,2024-08-16 20:22:36
+admin,Super123!,admin,approved,,2024-08-16 20:26:44

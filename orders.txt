@@ -1,0 +1,2 @@
+{'order_id': 'ORD001', 'username': 'cus', 'item': 'Laptop', 'quantity': 2, 'status': 'completed', 'order_type': 'product', 'order_date': '2024-08-16 20:31:29'}
+{'order_id': 'ORD002', 'username': 'cus', 'item': 'mouse', 'issue': 'broken', 'status': 'completed', 'order_type': 'service', 'order_date': '2024-08-16 20:41:00'}

@@ -1,0 +1,5 @@
+Laptop,1500.0
+Keyboard,500.0
+RAM,500.0
+CPU,1000.0
+Monitor,1000.0
